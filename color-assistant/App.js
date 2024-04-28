@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import CameraView from './CameraView.js';
 import React from 'react';
