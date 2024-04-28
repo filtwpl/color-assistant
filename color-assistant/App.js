@@ -1,36 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { Camera, CameraType } from 'expo-camera';
+import CameraView from './CameraView.js';
 import React from 'react';
 
 export default function App() {
-  const [permission, requestPermission] = Camera.useCameraPermissions();
-  if (!permission) {
-    return <View />;
-  }
-  
-  if (!permission.granted) {
-    return (
-      <View style={styles.container}>
-        <Text style={{ textAlign: 'center'}}>
-          Enable camera permissions for this app to start identifying colors!
-        </Text>
-        <Button onPress={requestPermission} title="grant permission" />
-      </View>
-    )
-  }
-
   return (
-    <View style={styles.container}>
-      <Camera 
-        style={{width: "75%", height: "75%"}}
-        type={CameraType.back} 
-      ></Camera>
-      <View>
-        <Text style={styles.textContainer}>Start by taking a photo of your garment!</Text>
-      </View>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <CameraView/>
+    </SafeAreaProvider>
   );
 }
 
