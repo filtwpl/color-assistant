@@ -14,6 +14,7 @@ export default function CameraView() {
 	const __takePicture = async() => {
 		if (!camera) return;
 		const photo = await camera.takePictureAsync();
+		console.log(photo);
 		setPicture(photo);
 		setConfirm(true);
 	}	
@@ -25,7 +26,7 @@ export default function CameraView() {
   if (!permission.granted) {
     return (
 			<SafeAreaView style={styles.container}>
-				<Text style={{ textAlign: 'center'}}>
+				<Text style={{ textAlign: 'center', margin: 'auto'}}>
 					Enable camera permissions for this app to start identifying colors!
 				</Text>
 				<Button style={styles.textContainer} onPress={requestPermission} title="Grant Permission" />
@@ -59,8 +60,9 @@ export default function CameraView() {
 }
 
 const ConfirmScreen = ({pic}) => {
+	console.log('pic!: ', pic)
 	return (
-		<SafeAreaView style={styles.container}>
+		<SafeAreaView style={{backgroundColor: 'transparent', flex: 1, width: '100%', height: '100%'}}>
 			<ImageBackground 
 				style={{flex: 1}}
 				source={{uri: pic && pic.uri}}
