@@ -1,6 +1,7 @@
-import { Button, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Pressable, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Camera, CameraType } from 'expo-camera';
+import { Image } from 'expo-image';
 import { useState } from 'react';
 import React from 'react';
 
@@ -11,11 +12,12 @@ export default function CameraView() {
 
 	let camera;
   
-	const __takePicture = async() => {
+	const takePicture = async() => {
 		if (!camera) return;
 		const photo = await camera.takePictureAsync();
 		console.log(photo);
 		setPicture(photo);
+		console.log("the picture set is: ", picture);
 		setConfirm(true);
 	}	
 
@@ -36,8 +38,13 @@ export default function CameraView() {
 
   return (
 		(picture && confirm) ? (
-			<SafeAreaView>
-				<ConfirmScreen photo={picture} />
+			<SafeAreaView style={styles.container}>
+				<Image 
+					contentFit={'contain'}
+					style={styles.camera}
+					source={{uri: picture.uri}}
+				/>
+				
 			</SafeAreaView>
 		) : (
 			<SafeAreaView style={styles.container}>
@@ -48,7 +55,7 @@ export default function CameraView() {
 				>
 					<SafeAreaView style={styles.buttonContainer}>
 						<TouchableOpacity
-							onPress={__takePicture}
+							onPress={takePicture}
 							style={styles.button}
 						/>
 					</SafeAreaView>
@@ -59,13 +66,14 @@ export default function CameraView() {
 	);
 }
 
-const ConfirmScreen = ({pic}) => {
+const ConfirmScreen = (pic) => {
 	console.log('pic!: ', pic)
 	return (
 		<SafeAreaView style={{backgroundColor: 'transparent', flex: 1, width: '100%', height: '100%'}}>
+			<Text>"picture: " + {pic.uri} </Text>
 			<ImageBackground 
 				style={{flex: 1}}
-				source={{uri: pic && pic.uri}}
+				source={{uri: pic.uri}}
 			/>
 		</SafeAreaView>
 	)
