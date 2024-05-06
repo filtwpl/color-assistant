@@ -1,18 +1,12 @@
 import { StyleSheet, Pressable, Text } from "react-native";
-import { Image } from 'expo-image';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import ReactDOM from 'react-dom'
-import { library } from '@fortawesome/fontawesome-svg-core'
-//import { all } from '@awesome.me/free-regular-svg-icons/icons'
-
-// library.add(...all)
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function IconButton({ iconCode, onPress }) {
   return (
     <Pressable style={styles.button} onPress={onPress}>
-      <Ionicons
+      <MaterialIcons
         name={iconCode} 
-        size={18} 
+        size={20} 
         color="#25292e" 
         style={styles.buttonIcon} 
       />

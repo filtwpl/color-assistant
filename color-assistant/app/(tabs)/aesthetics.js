@@ -1,7 +1,13 @@
 import { Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Boards from '../../src/Boards';
 
 export default function Page() {
     return (
-        <Text>Placeholder for Aesthetics Screen</Text>
+        <SafeAreaView>
+            <Text>yippee</Text>
+            <Boards/>
+        </SafeAreaView>
+        
     )
 }

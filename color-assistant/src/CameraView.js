@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Camera, CameraType } from 'expo-camera';
 import { Image } from 'expo-image';
 import { useState } from 'react';
@@ -81,12 +81,12 @@ export default function CameraView() {
           >
             {(flash) ? (
               <IconButton
-                iconCode={"flash-outline"}
+                iconCode={"flash-on"}
                 onPress={() => setFlash(!flash)}
               />
             ) : (
               <IconButton
-                iconCode={"flash-off-outline"}
+                iconCode={"flash-off"}
                 onPress={() => setFlash(!flash)}
               />
             )}
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
       display: 'flex',
       position: 'absolute',
 			bottom: 0,
-			marginLeft: '35%',
+			marginLeft: '33%',
       alignItems: 'center',
 		},
     container: {
