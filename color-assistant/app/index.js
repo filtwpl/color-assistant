@@ -1,15 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StyleSheet} from 'react-native';
 import React from 'react';
+import { Text } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import CameraView from './src/CameraView.js';
+import CameraView from '../src/CameraView.js';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+export default function Page() {
   return (
-    <SafeAreaProvider>
-      <CameraView/>
-    </SafeAreaProvider>
+    <CameraView/>
   );
 }
 

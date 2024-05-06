@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { Camera, CameraType } from 'expo-camera';
 import { Image } from 'expo-image';
 import { useState } from 'react';
@@ -50,57 +50,57 @@ export default function CameraView() {
   }
 
   return (
-		(picture && confirm) ? (
-			<SafeAreaView style={styles.container}>
-				<Image 
-					contentFit={'contain'}
-					style={styles.camera}
-					source={{uri: picture.uri}}
-				/>
-        <View style={styles.buttonContainer}>
-          <TextButton 
-            color={'#b2edf7'}
-            textLabel={'Retake'} 
-            onPress={retakePicture}
+      (picture && confirm) ? (
+        <SafeAreaView style={styles.container}>
+          <Image 
+            contentFit={'contain'}
+            style={styles.camera}
+            source={{uri: picture.uri}}
           />
-          <TextButton
-            color={'#89e092'}
-            textLabel={'Confirm'}
-            onPress={() => {}} // placeholder
-          />
-        </View>
-			</SafeAreaView>
-		) : (
-			<SafeAreaView style={styles.container}>
-				<Camera 
-          autoFocus={true}
-					style={styles.camera}
-					type={CameraType.back} 
-					ref={(r) => camera = r}
-          flashMode={flash ? 'on' : 'off'}
-				>
-          {(flash) ? (
-            <IconButton
-              iconCode={"flash-outline"}
-              onPress={() => setFlash(!flash)}
+          <View style={styles.buttonContainer}>
+            <TextButton 
+              color={'#b2edf7'}
+              textLabel={'Retake'} 
+              onPress={retakePicture}
             />
-          ) : (
-            <IconButton
-              iconCode={"flash-off-outline"}
-              onPress={() => setFlash(!flash)}
+            <TextButton
+              color={'#89e092'}
+              textLabel={'Confirm'}
+              onPress={() => {}} // placeholder
             />
-          )}
-					<SafeAreaView style={styles.captureButtonContainer}>
-						<TouchableOpacity
-							onPress={takePicture}
-							style={styles.captureButton}
-						/>
-					</SafeAreaView>
-				</Camera>
-				<Text style={styles.textContainer}>Start by taking a photo of your garment!</Text>
-			</SafeAreaView>
-		)
-	);
+          </View>
+        </SafeAreaView>
+      ) : (
+        <SafeAreaView style={styles.container}>
+          <Camera 
+            autoFocus={true}
+            style={styles.camera}
+            type={CameraType.back} 
+            ref={(r) => camera = r}
+            flashMode={flash ? 'on' : 'off'}
+          >
+            {(flash) ? (
+              <IconButton
+                iconCode={"flash-outline"}
+                onPress={() => setFlash(!flash)}
+              />
+            ) : (
+              <IconButton
+                iconCode={"flash-off-outline"}
+                onPress={() => setFlash(!flash)}
+              />
+            )}
+            <SafeAreaView style={styles.captureButtonContainer}>
+              <TouchableOpacity
+                onPress={takePicture}
+                style={styles.captureButton}
+              />
+            </SafeAreaView>
+          </Camera>
+          <Text style={styles.textContainer}>Start by taking a photo of your garment!</Text>
+        </SafeAreaView>
+      )
+		);
 }
 
 const styles = StyleSheet.create({
