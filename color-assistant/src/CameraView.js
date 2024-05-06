@@ -1,28 +1,41 @@
-import { Button, Pressable, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Camera, CameraType } from 'expo-camera';
 import { Image } from 'expo-image';
 import { useState } from 'react';
 import React from 'react';
 
+import TextButton from './TextButton';
+import IconButton from './IconButton';
+
 export default function CameraView() {
   const [permission, requestPermission] = Camera.useCameraPermissions();
 	const [picture, setPicture] = useState(null);
 	const [confirm, setConfirm] = useState(false); 
+  const [flash, setFlash] = useState(false);
 
 	let camera;
   
 	const takePicture = async() => {
 		if (!camera) return;
 		const photo = await camera.takePictureAsync();
-		console.log(photo);
 		setPicture(photo);
-		console.log("the picture set is: ", picture);
 		setConfirm(true);
-	}	
+	}	  
 
-	if (!permission) {
-    return <SafeAreaView />;
+	const retakePicture = () => {
+		setPicture(null);
+		setConfirm(false);
+	}
+
+  if (!permission) {
+    return (
+		<SafeAreaView>
+			<Text style={{ textAlign: 'center', margin: 'auto'}}>
+				Please go to settings to enable camera permissions!
+			</Text>
+		</SafeAreaView>
+	);
   }
   
   if (!permission.granted) {
@@ -44,19 +57,43 @@ export default function CameraView() {
 					style={styles.camera}
 					source={{uri: picture.uri}}
 				/>
-				
+        <View style={styles.buttonContainer}>
+          <TextButton 
+            color={'#b2edf7'}
+            textLabel={'Retake'} 
+            onPress={retakePicture}
+          />
+          <TextButton
+            color={'#89e092'}
+            textLabel={'Confirm'}
+            onPress={() => {}} // placeholder
+          />
+        </View>
 			</SafeAreaView>
 		) : (
 			<SafeAreaView style={styles.container}>
 				<Camera 
+          autoFocus={true}
 					style={styles.camera}
 					type={CameraType.back} 
 					ref={(r) => camera = r}
+          flashMode={flash ? 'on' : 'off'}
 				>
-					<SafeAreaView style={styles.buttonContainer}>
+          {(flash) ? (
+            <IconButton
+              iconCode={"flash-outline"}
+              onPress={() => setFlash(!flash)}
+            />
+          ) : (
+            <IconButton
+              iconCode={"flash-off-outline"}
+              onPress={() => setFlash(!flash)}
+            />
+          )}
+					<SafeAreaView style={styles.captureButtonContainer}>
 						<TouchableOpacity
 							onPress={takePicture}
-							style={styles.button}
+							style={styles.captureButton}
 						/>
 					</SafeAreaView>
 				</Camera>
@@ -66,30 +103,19 @@ export default function CameraView() {
 	);
 }
 
-const ConfirmScreen = (pic) => {
-	console.log('pic!: ', pic)
-	return (
-		<SafeAreaView style={{backgroundColor: 'transparent', flex: 1, width: '100%', height: '100%'}}>
-			<Text>"picture: " + {pic.uri} </Text>
-			<ImageBackground 
-				style={{flex: 1}}
-				source={{uri: pic.uri}}
-			/>
-		</SafeAreaView>
-	)
-}
-
 const styles = StyleSheet.create({
-		button: {
+		captureButton: {
 			backgroundColor: '#fff',
 			width: 50,
 			height: 50,
 			borderRadius: 50
 		},
-		buttonContainer: {
-			position: 'absolute',
+		captureButtonContainer: { 
+      display: 'flex',
+      position: 'absolute',
 			bottom: 0,
-			marginLeft: '42%',
+			marginLeft: '35%',
+      alignItems: 'center',
 		},
     container: {
       flex: 1,
@@ -98,15 +124,23 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     camera: {
+      alignContent: 'center',
       marginInline: "auto",
       width: "75%",
       height: "75%",
 			overflow: 'hidden',
 			borderRadius: '10%',
+      display: 'flex',
     },
     textContainer: {
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: '10%',
     },
+    buttonContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '75%',
+    }
   });

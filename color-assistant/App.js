@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import CameraView from './CameraView.js';
+import { StyleSheet} from 'react-native';
 import React from 'react';
+
+import CameraView from './src/CameraView.js';
 
 export default function App() {
   return (
