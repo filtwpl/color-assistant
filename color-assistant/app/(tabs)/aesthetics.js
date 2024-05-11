@@ -1,13 +1,10 @@
-import { Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View } from 'react-native';
 import Boards from '../../src/Boards';
 
 export default function Page() {
-    return (
-        <SafeAreaView>
-            <Text>yippee</Text>
-            <Boards/>
-        </SafeAreaView>
-        
-    )
+  return (
+    <View>
+      <Boards/>
+    </View>
+  )
 }

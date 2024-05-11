@@ -4,7 +4,12 @@ import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'green'}}>
+    <Tabs 
+      screenOptions={({ route }) => ({
+        headerShown: route.name === 'board/[id]' ? false : true,
+        tabBarActiveTintColor: 'green',
+      })}
+    >
       <Tabs.Screen
         name='index'
         options={{
@@ -19,6 +24,14 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <MaterialIcons name="dashboard" size={24} color={color} />,
         }}
       />
+      <Tabs.Screen
+        name='board/[id]'
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   )
 }
+
+// ={{ tabBarActiveTintColor: 'green'}}
