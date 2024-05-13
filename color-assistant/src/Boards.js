@@ -1,26 +1,26 @@
 import React from 'react';
-import { Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, FlatList, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements';
 import { Link } from 'expo-router';
 import { router } from 'expo-router';
 
 const data = [
   {
-    id: 1,
+    id: 'cottagecore',
     title: 'cottagecore',
     img: require('./img/cottagecore_placeholder.png'),
     href: {
       pathname: '/board/[id]',
-      params: { id: '1' },
+      params: { id: 'cottagecore' },
     },
   },
   {
-    id: 2,
+    id: 'emo',
     title: 'emo',
     img: require('./img/emo_placeholder.png'),
     href: {
       pathname: '/board/[id]',
-      params: { id: '2' },
+      params: { id: 'emo' },
     },
   },
   // {
@@ -69,18 +69,3 @@ export default function Boards() {
     />
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-//   item: {
-//     padding: 20,
-//     marginVertical: 8,
-//     marginHorizontal: 16,
-//   },
-//   title: {
-//     fontSize: 32,
-//     textColor: '#fff',
-//   },
-// });

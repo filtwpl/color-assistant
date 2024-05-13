@@ -141,43 +141,43 @@ export default function CameraView() {
 }
 
 const styles = StyleSheet.create({
-		captureButton: {
-			backgroundColor: '#fff',
-			width: 50,
-			height: 50,
-			borderRadius: 50
-		},
-		captureButtonContainer: { 
-      display: 'flex',
-      position: 'absolute',
-			bottom: 0,
-			marginLeft: '33%',
-      alignItems: 'center',
-		},
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    camera: {
-      alignContent: 'center',
-      marginInline: "auto",
-      width: "75%",
-      height: "85%",
-			overflow: 'hidden',
-			borderRadius: '10%',
-      display: 'flex',
-    },
-    textContainer: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: '10%',
-    },
-    buttonContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      width: '75%',
-    }
-  });
+  captureButton: {
+    backgroundColor: '#fff',
+    width: 50,
+    height: 50,
+    borderRadius: 50
+  },
+  captureButtonContainer: { 
+    display: 'flex',
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: '43%',
+    alignItems: 'center',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  camera: {
+    alignContent: 'center',
+    marginInline: "auto",
+    width: "75%",
+    height: "85%",
+    overflow: 'hidden',
+    borderRadius: '10%',
+    display: 'flex',
+  },
+  textContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '10%',
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '75%',
+  }
+});
