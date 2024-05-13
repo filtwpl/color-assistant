@@ -1,15 +1,16 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Camera, CameraType } from 'expo-camera';
+import { useCameraPermissions } from 'expo-camera';
 import { Image } from 'expo-image';
 import { useState } from 'react';
 import React from 'react';
+import { Camera, CameraType} from 'expo-camera/legacy';
 
 import TextButton from './TextButton';
 import IconButton from './IconButton';
 
 export default function CameraView() {
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [permission, requestPermission] = useCameraPermissions();
 	const [picture, setPicture] = useState(null);
 	const [confirm, setConfirm] = useState(false); 
   const [flash, setFlash] = useState(false);
