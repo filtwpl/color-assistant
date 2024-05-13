@@ -5,6 +5,7 @@ import { Image } from 'expo-image';
 import { useState } from 'react';
 import React from 'react';
 import { Camera, CameraType} from 'expo-camera/legacy';
+import * as FileSystem from 'expo-file-system';
 
 import TextButton from './TextButton';
 import IconButton from './IconButton';
@@ -14,6 +15,7 @@ export default function CameraView() {
 	const [picture, setPicture] = useState(null);
 	const [confirm, setConfirm] = useState(false); 
   const [flash, setFlash] = useState(false);
+  const folderPath = `${FileSystem.documentDirectory}userSavedPic`;
 
 	let camera;
   
@@ -28,6 +30,37 @@ export default function CameraView() {
 		setPicture(null);
 		setConfirm(false);
 	}
+
+  const saveImage = async (uri) => {
+    const fileName = uri.split('/').pop();
+    console.log('Folder Path:', folderPath);
+  
+    //Ensure the folder exists
+    const folderInfo = await FileSystem.getInfoAsync(folderPath);
+    console.log('Folder Exists:', folderInfo.exists);
+    if (!folderInfo.exists) {
+      await FileSystem.makeDirectoryAsync(folderPath, { intermediates: true });
+    }
+  
+    const newPath = `${folderPath}/${fileName}`;
+    console.log('New Path:', newPath);
+    await FileSystem.moveAsync({
+      from: uri,
+      to: newPath,
+    });
+
+    return newPath; // Optionally return the new path
+  };
+
+  const handleConfirmPress = async () => {
+    try {
+      const newImagePath = await saveImage(picture.uri);
+      console.log('Image saved successfully to:', newImagePath);
+      // Optionally, navigate to another screen or reset the state
+    } catch (error) {
+      console.error('Failed to save image:', error);
+    }
+  };
 
   if (!permission) {
     return (
@@ -67,7 +100,7 @@ export default function CameraView() {
             <TextButton
               color={'#89e092'}
               textLabel={'Confirm'}
-              onPress={() => {}} // placeholder
+              onPress={handleConfirmPress} // placeholder
             />
           </View>
         </SafeAreaView>
