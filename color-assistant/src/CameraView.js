@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCameraPermissions } from 'expo-camera';
 import { Image } from 'expo-image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import React from 'react';
 import { Camera, CameraType} from 'expo-camera/legacy';
 import * as FileSystem from 'expo-file-system';
@@ -33,17 +33,20 @@ export default function CameraView() {
 
   const saveImage = async (uri) => {
     const fileName = uri.split('/').pop();
-    console.log('Folder Path:', folderPath);
-  
+
     //Ensure the folder exists
     const folderInfo = await FileSystem.getInfoAsync(folderPath);
-    console.log('Folder Exists:', folderInfo.exists);
     if (!folderInfo.exists) {
       await FileSystem.makeDirectoryAsync(folderPath, { intermediates: true });
     }
   
     const newPath = `${folderPath}/${fileName}`;
-    console.log('New Path:', newPath);
+
+    const fileInfo = await FileSystem.getInfoAsync(newPath);
+    if (fileInfo.exists) {
+      return newPath; // File exists, return the path and do not overwrite
+    }
+
     await FileSystem.moveAsync({
       from: uri,
       to: newPath,
