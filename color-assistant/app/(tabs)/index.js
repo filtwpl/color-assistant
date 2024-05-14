@@ -3,12 +3,13 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import CameraView from '../../src/CameraView.js';
-
+import DetectObjectsScreen from '../../src/DetectObjectsScreen.js';
 const Stack = createStackNavigator();
 
 export default function Page() {
   return (
-    <CameraView/>
+    // <CameraView/>
+    <DetectObjectsScreen/>
   );
 }
 

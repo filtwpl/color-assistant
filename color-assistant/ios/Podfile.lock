@@ -3,6 +3,9 @@ PODS:
   - DoubleConversion (1.1.6)
   - EXConstants (16.0.1):
     - ExpoModulesCore
+  - EXImageLoader (4.7.0):
+    - ExpoModulesCore
+    - React-Core
   - Expo (51.0.5):
     - ExpoModulesCore
   - ExpoAsset (10.0.6):
@@ -15,6 +18,9 @@ PODS:
     - ExpoModulesCore
   - ExpoFont (12.0.5):
     - ExpoModulesCore
+  - ExpoGL (14.0.2):
+    - ExpoModulesCore
+    - ReactCommon/turbomodule/core
   - ExpoHead (3.5.12):
     - ExpoModulesCore
   - ExpoImage (1.12.9):
@@ -24,6 +30,12 @@ PODS:
     - SDWebImageAVIFCoder (~> 0.11.0)
     - SDWebImageSVGCoder (~> 1.7.0)
     - SDWebImageWebPCoder (~> 0.14.6)
+  - ExpoImageManipulator (12.0.5):
+    - EXImageLoader
+    - ExpoModulesCore
+    - SDWebImageWebPCoder
+  - ExpoImagePicker (15.0.4):
+    - ExpoModulesCore
   - ExpoKeepAwake (13.0.1):
     - ExpoModulesCore
   - ExpoModulesCore (1.12.10):
@@ -72,42 +84,86 @@ PODS:
     - ReactCommon/turbomodule/core
     - Yoga
   - FBLazyVector (0.74.1)
+  - Firebase/Auth (10.24.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 10.24.0)
+  - Firebase/CoreOnly (10.24.0):
+    - FirebaseCore (= 10.24.0)
+  - Firebase/Crashlytics (10.24.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 10.24.0)
+  - FirebaseAppCheckInterop (10.25.0)
+  - FirebaseAuth (10.24.0):
+    - FirebaseAppCheckInterop (~> 10.17)
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
+    - RecaptchaInterop (~> 100.0)
+  - FirebaseCore (10.24.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.12)
+    - GoogleUtilities/Logger (~> 7.12)
+  - FirebaseCoreExtension (10.25.0):
+    - FirebaseCore (~> 10.0)
+  - FirebaseCoreInternal (10.25.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseCrashlytics (10.24.0):
+    - FirebaseCore (~> 10.5)
+    - FirebaseInstallations (~> 10.0)
+    - FirebaseRemoteConfigInterop (~> 10.23)
+    - FirebaseSessions (~> 10.5)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.8)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+    - PromisesObjC (~> 2.1)
+  - FirebaseInstallations (10.25.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - PromisesObjC (~> 2.1)
+  - FirebaseRemoteConfigInterop (10.25.0)
+  - FirebaseSessions (10.25.0):
+    - FirebaseCore (~> 10.5)
+    - FirebaseCoreExtension (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.13)
+    - GoogleUtilities/UserDefaults (~> 7.13)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+    - PromisesSwift (~> 2.1)
   - fmt (9.1.0)
   - glog (0.3.5)
   - GoogleDataTransport (9.4.1):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleMLKit/MLKitCore (3.2.0):
-    - MLKitCommon (~> 8.0.0)
-  - GoogleMLKit/ObjectDetection (3.2.0):
-    - GoogleMLKit/MLKitCore
-    - MLKitObjectDetection (~> 2.2.0)
-  - GoogleToolboxForMac/DebugUtils (2.3.2):
-    - GoogleToolboxForMac/Defines (= 2.3.2)
-  - GoogleToolboxForMac/Defines (2.3.2)
-  - GoogleToolboxForMac/Logger (2.3.2):
-    - GoogleToolboxForMac/Defines (= 2.3.2)
-  - "GoogleToolboxForMac/NSData+zlib (2.3.2)":
-    - GoogleToolboxForMac/Defines (= 2.3.2)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.3.2)":
-    - GoogleToolboxForMac/DebugUtils (= 2.3.2)
-    - GoogleToolboxForMac/Defines (= 2.3.2)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.2)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.3.2)"
+  - GoogleUtilities/AppDelegateSwizzler (7.13.3):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+    - GoogleUtilities/Privacy
   - GoogleUtilities/Environment (7.13.3):
     - GoogleUtilities/Privacy
     - PromisesObjC (< 3.0, >= 1.2)
   - GoogleUtilities/Logger (7.13.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Privacy
+  - GoogleUtilities/Network (7.13.3):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Privacy
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.13.3)":
+    - GoogleUtilities/Privacy
   - GoogleUtilities/Privacy (7.13.3)
+  - GoogleUtilities/Reachability (7.13.3):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
   - GoogleUtilities/UserDefaults (7.13.3):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - GoogleUtilitiesComponents (1.1.0):
-    - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.7.2)
+  - GTMSessionFetcher/Core (3.4.1)
   - hermes-engine (0.74.1):
     - hermes-engine/Pre-built (= 0.74.1)
   - hermes-engine/Pre-built (0.74.1)
@@ -130,46 +186,14 @@ PODS:
   - libwebp/sharpyuv (1.3.2)
   - libwebp/webp (1.3.2):
     - libwebp/sharpyuv
-  - MLImage (1.0.0-beta3)
-  - MLKitCommon (8.0.0):
-    - GoogleDataTransport (~> 9.0)
-    - GoogleToolboxForMac/Logger (~> 2.1)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
-    - GoogleUtilities/UserDefaults (~> 7.0)
-    - GoogleUtilitiesComponents (~> 1.0)
-    - GTMSessionFetcher/Core (~> 1.1)
-    - Protobuf (~> 3.12)
-  - MLKitImageLabelingCommon (4.2.0):
-    - MLKitCommon (~> 8.0)
-    - MLKitVision (~> 4.2)
-  - MLKitObjectDetection (2.2.0):
-    - MLKitCommon (~> 8.0)
-    - MLKitObjectDetectionCommon (~> 4.2)
-    - MLKitVision (~> 4.2)
-    - MLKitVisionKit (~> 5.2)
-  - MLKitObjectDetectionCommon (4.2.0):
-    - MLKitCommon (~> 8.0)
-    - MLKitVision (~> 4.2)
-  - MLKitVision (4.2.0):
-    - GoogleToolboxForMac/Logger (~> 2.1)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-    - GTMSessionFetcher/Core (~> 1.1)
-    - MLImage (= 1.0.0-beta3)
-    - MLKitCommon (~> 8.0)
-    - Protobuf (~> 3.12)
-  - MLKitVisionKit (5.2.0):
-    - MLKitCommon (~> 8.0)
-    - MLKitImageLabelingCommon (~> 4.2)
-    - MLKitObjectDetectionCommon (~> 4.2)
-    - MLKitVision (~> 4.2)
   - nanopb (2.30910.0):
     - nanopb/decode (= 2.30910.0)
     - nanopb/encode (= 2.30910.0)
   - nanopb/decode (2.30910.0)
   - nanopb/encode (2.30910.0)
   - PromisesObjC (2.4.0)
-  - Protobuf (3.26.1)
+  - PromisesSwift (2.4.0):
+    - PromisesObjC (= 2.4.0)
   - RCT-Folly (2024.01.01.00):
     - boost
     - DoubleConversion
@@ -1329,8 +1353,25 @@ PODS:
     - React-logger (= 0.74.1)
     - React-perflogger (= 0.74.1)
     - React-utils (= 0.74.1)
+  - RecaptchaInterop (100.0.0)
+  - RNCAsyncStorage (1.23.1):
+    - React-Core
   - RNCMaskedView (0.1.11):
     - React
+  - RNFBApp (19.2.2):
+    - Firebase/CoreOnly (= 10.24.0)
+    - React-Core
+  - RNFBAuth (19.2.2):
+    - Firebase/Auth (= 10.24.0)
+    - React-Core
+    - RNFBApp
+  - RNFBCrashlytics (19.2.2):
+    - Firebase/Crashlytics (= 10.24.0)
+    - FirebaseCoreExtension
+    - React-Core
+    - RNFBApp
+  - RNFS (2.20.0):
+    - React-Core
   - RNGestureHandler (2.16.2):
     - DoubleConversion
     - glog
@@ -1420,20 +1461,23 @@ DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
+  - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
   - Expo (from `../node_modules/expo`)
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
   - ExpoCamera (from `../node_modules/expo-camera/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../node_modules/expo-font/ios`)
+  - ExpoGL (from `../node_modules/expo-gl`)
   - ExpoHead (from `../node_modules/expo-router/ios`)
   - ExpoImage (from `../node_modules/expo-image/ios`)
+  - ExpoImageManipulator (from `../node_modules/expo-image-manipulator/ios`)
+  - ExpoImagePicker (from `../node_modules/expo-image-picker/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - GoogleMLKit/ObjectDetection (= 3.2.0)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - ImageColors (from `../node_modules/react-native-image-colors/ios`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
@@ -1486,7 +1530,12 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
+  - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
+  - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -1495,25 +1544,26 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Firebase
+    - FirebaseAppCheckInterop
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseCoreExtension
+    - FirebaseCoreInternal
+    - FirebaseCrashlytics
+    - FirebaseInstallations
+    - FirebaseRemoteConfigInterop
+    - FirebaseSessions
     - GoogleDataTransport
-    - GoogleMLKit
-    - GoogleToolboxForMac
     - GoogleUtilities
-    - GoogleUtilitiesComponents
     - GTMSessionFetcher
     - libavif
     - libdav1d
     - libwebp
-    - MLImage
-    - MLKitCommon
-    - MLKitImageLabelingCommon
-    - MLKitObjectDetection
-    - MLKitObjectDetectionCommon
-    - MLKitVision
-    - MLKitVisionKit
     - nanopb
     - PromisesObjC
-    - Protobuf
+    - PromisesSwift
+    - RecaptchaInterop
     - SDWebImage
     - SDWebImageAVIFCoder
     - SDWebImageSVGCoder
@@ -1528,6 +1578,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   EXConstants:
     :path: "../node_modules/expo-constants/ios"
+  EXImageLoader:
+    :path: "../node_modules/expo-image-loader/ios"
   Expo:
     :path: "../node_modules/expo"
   ExpoAsset:
@@ -1538,10 +1590,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-file-system/ios"
   ExpoFont:
     :path: "../node_modules/expo-font/ios"
+  ExpoGL:
+    :path: "../node_modules/expo-gl"
   ExpoHead:
     :path: "../node_modules/expo-router/ios"
   ExpoImage:
     :path: "../node_modules/expo-image/ios"
+  ExpoImageManipulator:
+    :path: "../node_modules/expo-image-manipulator/ios"
+  ExpoImagePicker:
+    :path: "../node_modules/expo-image-picker/ios"
   ExpoKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoModulesCore:
@@ -1655,8 +1713,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
+  RNFBApp:
+    :path: "../node_modules/@react-native-firebase/app"
+  RNFBAuth:
+    :path: "../node_modules/@react-native-firebase/auth"
+  RNFBCrashlytics:
+    :path: "../node_modules/@react-native-firebase/crashlytics"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -1672,40 +1740,44 @@ SPEC CHECKSUMS:
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   EXConstants: 9a008dbf262550884e6280dea95b81b51f65ea6f
+  EXImageLoader: ab589d67d6c5f2c33572afea9917304418566334
   Expo: a3177f18e97260de9ec29802d28d29c130871e94
   ExpoAsset: 9b7433ecc5f1b608ccbb823492e062bde944abd2
   ExpoCamera: 304f53e32faf8ed18b2199abba346f85ca395aff
   ExpoFileSystem: 80bfe850b1f9922c16905822ecbf97acd711dc51
   ExpoFont: 690b76008be824e47907f200cb0764870108dfd1
+  ExpoGL: a2d717e4b7279a075d7dff04d8d2471cb404ad2c
   ExpoHead: 1403ab1219f4f95f0a288f27312a9ef2863eebc7
   ExpoImage: eab004b9363e388d3f6a118f18716de6dcfb8e8d
+  ExpoImageManipulator: aea99205c66043a00a0af90e345395637b9902fa
+  ExpoImagePicker: f6d9da49201ce201645366afc6be12cef47f24d7
   ExpoKeepAwake: f3a7b0ff4b4911957264dad8cb584ef688326a22
   ExpoModulesCore: 018110a6db4e6cbbb3a4d0e6ad5c6f4f4cd7dc67
   EXSplashScreen: 41bb7f3981b85ddf0541fd2afb613e5e481eb55a
   FBLazyVector: 898d14d17bf19e2435cafd9ea2a1033efe445709
+  Firebase: 91fefd38712feb9186ea8996af6cbdef41473442
+  FirebaseAppCheckInterop: 5da5ce93e8797a215e3f677fb0654b74e736c8b8
+  FirebaseAuth: 711d01cccefaf10035b3090a92956d0dd4f99088
+  FirebaseCore: 11dc8a16dfb7c5e3c3f45ba0e191a33ac4f50894
+  FirebaseCoreExtension: 8a47811d0b155501559ef05d089518152a0a1677
+  FirebaseCoreInternal: 910a81992c33715fec9263ca7381d59ab3a750b7
+  FirebaseCrashlytics: af38ea4adfa606f6e63fcc22091b61e7938fcf66
+  FirebaseInstallations: 91950fe859846fff0fbd296180909dd273103b09
+  FirebaseRemoteConfigInterop: b25018791b204c0d78a90e394d6c62d9b1f22da8
+  FirebaseSessions: c0939656253a1fa0e94ecc266ccf770cc8b33732
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
-  GoogleMLKit: 0017a6a8372e1a182139b9def4d89be5d87ca5a7
-  GoogleToolboxForMac: 8bef7c7c5cf7291c687cf5354f39f9db6399ad34
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
-  GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
-  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
+  GTMSessionFetcher: 8000756fc1c19d2e5697b90311f7832d2e33f6cd
   hermes-engine: 16b8530de1b383cdada1476cf52d1b52f0692cbc
   ImageColors: 88be684570585c07ae2750bff34eb7b78bfc53b4
   libavif: 84bbb62fb232c3018d6f1bab79beea87e35de7b7
   libdav1d: 23581a4d8ec811ff171ed5e2e05cd27bad64c39f
   libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
-  MLImage: 489dfec109f21da8621b28d476401aaf7a0d4ff4
-  MLKitCommon: f6da6c5659618c070b50a80db01248ebe2964175
-  MLKitImageLabelingCommon: 48a3d85b80a993edb168576f94192338e046a836
-  MLKitObjectDetection: 76da46294ddf1aba22d2b6d69fa83ed1ce5dad49
-  MLKitObjectDetectionCommon: 9fd75e357db52714013d9dda97a9f35e7b5d7d5b
-  MLKitVision: 96c96571190b7f63eddf4a12068ce8a8689e0d2c
-  MLKitVisionKit: bd7f84af2da356322872182b1f5bdf66f68e4584
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
-  Protobuf: a53f5173a603075b3522a5c50be63a67a5f3353a
+  PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
   RCTDeprecation: efb313d8126259e9294dc4ee0002f44a6f676aba
   RCTRequired: f49ea29cece52aee20db633ae7edc4b271435562
@@ -1754,9 +1826,15 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 86b9c5bccd239d91da33e08b4c58c6a40b7fdb48
   React-utils: 8e9c5cd66f0788e156a1fcb5cd69593ec8607611
   ReactCommon: eb4c4a9c43fcc0d93f922d0fdada24638429e515
+  RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  RNCAsyncStorage: 826b603ae9c0f88b5ac4e956801f755109fa4d5c
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
+  RNFBApp: 91311b27bc9a33e23b76a62825afd1635501018a
+  RNFBAuth: 92172d8976baaa829825017174106e2b2c550319
+  RNFBCrashlytics: c3219ef7a0c779f2428236215781c38e7892f6f9
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 20a4307fd21cbff339abfcfa68192f3f0a6a518b
-  RNReanimated: f6def1f8d123e9ca8d3cb3f27eaffa3ecb450894
+  RNReanimated: d51431fd3597a8f8320319dce8e42cee82a5445f
   RNScreens: 30249f9331c3b00ae7cb7922e11f58b3ed369c07
   RNSVG: 43b64ed39c14ce830d840903774154ca0c1f27ec
   SDWebImage: dfe95b2466a9823cf9f0c6d01217c06550d7b29a
@@ -1767,6 +1845,6 @@ SPEC CHECKSUMS:
   Yoga: d02ee88821190d82b2daa5cd15640a82ffafaaab
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: d088c4bf84cbf69dad919d4b3ca89f994b0b90fe
+PODFILE CHECKSUM: 7caa467cc684a2697d78d4d97f5cf3b3b7b72330
 
 COCOAPODS: 1.15.2
