@@ -16,6 +16,7 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "googleServicesFile": "./ios/colorassistant/GoogleService-Info.plist",
       "bundleIdentifier": "com.anonymous.colorassistant"
     },
     "android": {
@@ -38,7 +39,18 @@
           "recordAudioAndroid": true
         }
       ],
-      "expo-router"
+      "expo-router",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/crashlytics",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ],
     "scheme": "acme"
   }
