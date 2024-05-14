@@ -1,20 +1,85 @@
 import { Text, FlatList, View, StyleSheet } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
 import { Image } from 'expo-image';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import images from './images';
-import { Card } from 'react-native-elements';
 
-const data = [
+const data0 = [
   {
     id: 1,
-    img: require('./img/cottagecore/1.jpg'),
+    img: images.cottagecore1,
   },
   {
     id: 2,
-    img: require('./img/cottagecore/1.jpg'),
+    img: images.cottagecore2,
   },
+  {
+    id: 3,
+    img: images.cottagecore3,
+  },
+  {
+    id: 4,
+    img: images.cottagecore4,
+  },
+  {
+    id: 5,
+    img: images.cottagecore5,
+  },
+  {
+    id: 6,
+    img: images.cottagecore6,
+  },
+  {
+    id: 7,
+    img: images.cottagecore7,
+  },
+  {
+    id: 8,
+    img: images.cottagecore8,
+  }
 ];
+
+const data1 = [
+  {
+    id: 1,
+    img: images.emo1,
+  },
+  {
+    id: 2,
+    img: images.emo2,
+  },
+  {
+    id: 3,
+    img: images.emo3,
+  },
+  {
+    id: 4,
+    img: images.emo4,
+  },
+  {
+    id: 5,
+    img: images.emo5,
+  },
+  {
+    id: 6,
+    img: images.emo6,
+  },
+  {
+    id: 7,
+    img: images.emo7,
+  },
+  {
+    id: 8,
+    img: images.emo8,
+  }
+];
+
+const encoding = {
+  'cottagecore': 0,
+  'emo': 1,
+}
+
+const imgs = []
+imgs.push(data0);
+imgs.push(data1);
   
 const Item = ({item}) => (
   <Image
@@ -22,8 +87,8 @@ const Item = ({item}) => (
     source={item.img}
   />
 );
-  
-export default function Board() {
+
+export default function Board({id}) {
 
   const renderItem = ({item}) => {
     return (
@@ -34,21 +99,23 @@ export default function Board() {
   };
 
   return (
-    <SafeAreaView styles={styles.container}>
+    <View styles={styles.container}>
+      <Text style={styles.header}>{id}</Text>
       <FlatList
-        data={data}
+        style={{top: 40}}
+        data={imgs[encoding[id]]}
         numColumns={2}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignContent: 'center',
+    display: 'flex',
+    alignItems: 'center',
   },
   image: {
     border: 10,
@@ -57,5 +124,12 @@ const styles = StyleSheet.create({
     height: 200,
     overflow: 'hidden',
     borderRadius: '10%',
+  },
+  header: {
+    position: 'absolute',
+    top: 10,
+    left: 15,
+    fontSize: 24, 
+    fontWeight: 'bold'
   }
 })

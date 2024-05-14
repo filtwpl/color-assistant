@@ -20,6 +20,7 @@
     "@react-navigation/stack": "^6.3.29",
     "antd": "^5.17.0",
     "expo": "^51.0.5",
+    "expo-build-properties": "~0.12.1",
     "expo-camera": "~15.0.8",
     "expo-constants": "~16.0.1",
     "expo-image": "~1.12.9",
@@ -43,8 +44,7 @@
     "react-native-super-grid": "^5.1.0",
     "react-native-svg": "^15.2.0",
     "react-native-web": "~0.19.6",
-    "save": "^2.9.0",
-    "expo-build-properties": "~0.12.1"
+    "save": "^2.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
