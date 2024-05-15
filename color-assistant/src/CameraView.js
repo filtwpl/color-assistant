@@ -7,6 +7,8 @@ import React from 'react';
 import { Camera, CameraType} from 'expo-camera/legacy';
 import * as FileSystem from 'expo-file-system';
 
+// import { getColors } from 'react-native-image-colors'
+
 import TextButton from './TextButton';
 import IconButton from './IconButton';
 
@@ -64,6 +66,20 @@ export default function CameraView() {
       console.error('Failed to save image:', error);
     }
   };
+
+  // const useImageColors = () => {
+  //   const [colors, setColors] = React.useState(null)
+  
+  //   React.useEffect(() => {
+  //     getColors(picture.uri, {
+  //       fallback: '#D6D6D6',
+  //       cache: true,
+  //       key: picture.uri,
+  //     }).then(setColors)
+  //   }, [])
+  
+  //   // text component = colors
+  // }
 
   if (!permission) {
     return (
