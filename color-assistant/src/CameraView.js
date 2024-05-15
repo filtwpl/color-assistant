@@ -28,7 +28,7 @@ export default function CameraView() {
     try{
       if (!camera) return;
       const photo = await camera.takePictureAsync();
-      await setPicture(photo);
+      setPicture(photo);
 
       let temp_href = await {
         pathname: '/results',

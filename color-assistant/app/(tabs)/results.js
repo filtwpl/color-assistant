@@ -1,6 +1,6 @@
 import React from 'react';
-import Results from '../../src/Resultss';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import Results from '../../src/Resultstemp';
+import { useLocalSearchParams } from 'expo-router';
 
 export default function Page() {
 

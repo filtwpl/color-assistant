@@ -30,18 +30,20 @@ export default function Results({uri}) {
   const [imageToAnalyze, setImageToAnalyze] = useState(null);
   const model = useRef(null);
 
-  const initializeTfAsync = async () => {
-    await tf.ready();
-    setIsTfReady(true);
-  };
+  useEffect(() => {
+    const initializeTfAsync = async () => {
+      await tf.ready();
+      setIsTfReady(true);
+    };
 
-  const initializeModelAsync = async () => {
-    model.current = await cocossd.load(); // preparing COCO-SSD model
-    setIsModelReady(true);
-  };
+    const initializeModelAsync = async () => {
+      model.current = await cocossd.load(); // preparing COCO-SSD model
+      setIsModelReady(true);
+    };
 
-  initializeTfAsync();
-  initializeModelAsync();
+    initializeTfAsync();
+    initializeModelAsync();
+  }, []);
 
   const imageToTensor = (rawImageData) => {
     const { width, height, data } = jpeg.decode(rawImageData, {
@@ -113,7 +115,11 @@ export default function Results({uri}) {
             <Text
               key={index}
             >
-              {p.class}: {p.score}
+              {p.class}: {p.score} 
+              left: {p.bbox[0]} 
+              top: {p.bbox[1]} 
+              width: {p.bbox[2]} 
+              height: {p.bbox[3]} 
             </Text>
           );
         })}
