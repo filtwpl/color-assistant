@@ -1,4 +1,5 @@
 const cottagecoreThumb = require('./img/cottagecore.jpg');
+const emoThumb = require('./img/emo.jpg')
 
 const cottagecore1 = require('./img/cottagecore/1.jpg');
 const cottagecore2 = require('./img/cottagecore/2.jpg');
