@@ -1,5 +1,10 @@
 const cottagecoreThumb = require('./img/cottagecore.jpg');
 const emoThumb = require('./img/emo.jpg')
+const coastalThumb = require('./img/coastal.jpg')
+const professionalThumb = require('./img/professional.jpg')
+const streetwearThumb = require('./img/streetwear.jpg')
+const academiaThumb = require('./img/academia.jpg')
+const y2kThumb = require('./img/y2k.jpg')
 
 const cottagecore1 = require('./img/cottagecore/1.jpg');
 const cottagecore2 = require('./img/cottagecore/2.jpg');
@@ -84,6 +89,7 @@ export default {
   emo6,
   emo7,
   emo8,
+  coastalThumb,
   coastal1,
   coastal2,
   coastal3,
@@ -92,6 +98,7 @@ export default {
   coastal6,
   coastal7,
   coastal8,
+  professionalThumb,
   professional1,
   professional2,
   professional3,
@@ -100,6 +107,7 @@ export default {
   professional6,
   professional7,
   professional8,
+  y2kThumb,
   y2k1,
   y2k2,
   y2k3,
@@ -108,6 +116,7 @@ export default {
   y2k6,
   y2k7,
   y2k8,
+  academiaThumb,
   academia1,
   academia2,
   academia3,
@@ -116,6 +125,7 @@ export default {
   academia6,
   academia7,
   academia8,
+  streetwearThumb,
   streetwear1,
   streetwear2,
   streetwear3,
