@@ -19,13 +19,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 
 import { fetch } from "@tensorflow/tfjs-react-native";
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useCameraPermissions } from 'expo-camera';
 import { Text, View } from "react-native";
-import { Image as Img} from 'expo-image';
-
-import TextButton from './TextButton';
-import IconButton from './IconButton';
 
 export default function DetectObjectsScreen() {
   const [isTfReady, setIsTfReady] = useState(false);
@@ -117,7 +111,6 @@ export default function DetectObjectsScreen() {
         
         const source = { uri: manipResponse.uri };
         setImageToAnalyze(source);
-        // console.log(manipResponse);
         setPredictions(null);
         await detectObjectsAsync(source);
       }

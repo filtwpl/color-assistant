@@ -7,6 +7,8 @@ import React from 'react';
 import { Camera, CameraType} from 'expo-camera/legacy';
 import * as FileSystem from 'expo-file-system';
 
+// import { getColors } from 'react-native-image-colors'
+
 import TextButton from './TextButton';
 import IconButton from './IconButton';
 
@@ -15,6 +17,7 @@ export default function CameraView() {
 	const [picture, setPicture] = useState(null);
 	const [confirm, setConfirm] = useState(false); 
   const [flash, setFlash] = useState(false);
+  const [href, setHref] = useState(null);
   const folderPath = `${FileSystem.documentDirectory}userSavedPic`;
 
 	let camera;
@@ -23,6 +26,7 @@ export default function CameraView() {
 		if (!camera) return;
 		const photo = await camera.takePictureAsync();
 		setPicture(photo);
+    setHref(picture.uri);
 		setConfirm(true);
 	}	  
 
@@ -65,6 +69,20 @@ export default function CameraView() {
     }
   };
 
+  // const useImageColors = () => {
+  //   const [colors, setColors] = React.useState(null)
+  
+  //   React.useEffect(() => {
+  //     getColors(picture.uri, {
+  //       fallback: '#D6D6D6',
+  //       cache: true,
+  //       key: picture.uri,
+  //     }).then(setColors)
+  //   }, [])
+  
+  //   // text component = colors
+  // }
+
   if (!permission) {
     return (
 		<SafeAreaView>
@@ -103,7 +121,7 @@ export default function CameraView() {
             <TextButton
               color={'#89e092'}
               textLabel={'Confirm'}
-              onPress={handleConfirmPress} // placeholder
+              onPress={() => {router.replace(href)}} 
             />
           </View>
         </SafeAreaView>
@@ -134,7 +152,7 @@ export default function CameraView() {
               />
             </SafeAreaView>
           </Camera>
-          <Text style={styles.textContainer}>Start by taking a photo of your garment!</Text>
+          <Text style={styles.textContainer}>Center your garment and take a picture!</Text>
         </SafeAreaView>
       )
 		);
