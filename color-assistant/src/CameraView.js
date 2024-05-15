@@ -24,12 +24,13 @@ export default function CameraView() {
 	let camera;
   
 	const takePicture = async() => {
+    if (!camera) return;
     try{
       if (!camera) return;
       const photo = await camera.takePictureAsync();
-      setPicture(photo);
+      await setPicture(photo);
 
-      let temp_href = {
+      let temp_href = await {
         pathname: '/results',
         params: {
           uri: picture.uri,
@@ -41,6 +42,10 @@ export default function CameraView() {
       console.log("temp_href error")
     }
 	}	  
+
+  const confirmPicture = () => {
+    router.replace(href)
+  };
 
 	const retakePicture = () => {
 		setPicture(null);
@@ -133,7 +138,7 @@ export default function CameraView() {
             <TextButton
               color={'#89e092'}
               textLabel={'Confirm'}
-              onPress={() => {router.replace(href)}} 
+              onPress={confirmPicture} 
             />
           </View>
         </SafeAreaView>
