@@ -23,6 +23,51 @@ const data = [
       params: { id: 'emo' },
     },
   },
+  {
+    id: 'academia',
+    title: 'academia',
+    img: images.academiaThumb,
+    href: {
+      pathname: '/board/[id]',
+      params: { id: 'academia' },
+    },
+  },
+  {
+    id: 'coastal',
+    title: 'coastal',
+    img: images.coastalThumb,
+    href: {
+      pathname: '/board/[id]',
+      params: { id: 'coastal' },
+    },
+  },
+  {
+    id: 'professional',
+    title: 'professional',
+    img: images.professionalThumb,
+    href: {
+      pathname: '/board/[id]',
+      params: { id: 'professional' },
+    },
+  },
+  {
+    id: 'streetwear',
+    title: 'streetwear',
+    img: images.streetwearThumb,
+    href: {
+      pathname: '/board/[id]',
+      params: { id: 'streetwear' },
+    },
+  },
+  {
+    id: 'y2k',
+    title: 'y2k',
+    img: images.y2kThumb,
+    href: {
+      pathname: '/board/[id]',
+      params: { id: 'y2k' },
+    },
+  },
 ];
 
 const Item = ({item}) => (
