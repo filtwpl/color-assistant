@@ -1,14 +1,14 @@
 import React from 'react';
 import { Text, FlatList, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements';
-import { Link } from 'expo-router';
 import { router } from 'expo-router';
+import images from './images';
 
 const data = [
   {
     id: 'cottagecore',
     title: 'cottagecore',
-    img: require('./img/cottagecore_placeholder.png'),
+    img: images.cottagecoreThumb,
     href: {
       pathname: '/board/[id]',
       params: { id: 'cottagecore' },
@@ -17,27 +17,12 @@ const data = [
   {
     id: 'emo',
     title: 'emo',
-    img: require('./img/emo_placeholder.png'),
+    img: images.emoThumb,
     href: {
       pathname: '/board/[id]',
       params: { id: 'emo' },
     },
   },
-  // {
-  //   id: 3,
-  //   title: 'emo',
-  //   img: require('./img/emo_placeholder.png'),
-  // },
-  // {
-  //   id: 4,
-  //   title: 'emo',
-  //   img: require('./img/emo_placeholder.png'),
-  // },
-  // {
-  //   id: 5,
-  //   title: 'emo',
-  //   img: require('./img/emo_placeholder.png'),
-  // }
 ];
 
 const Item = ({item}) => (
@@ -45,8 +30,8 @@ const Item = ({item}) => (
     <Card>
       <Card.Title>
         <Text>{item.title}</Text>
-      </Card.Title>  
-      <Card.Image source={item.img}/>
+      </Card.Title>
+      <Card.Image styles={{resizeMode: 'center'}} source={item.img}/>
     </Card>
   </TouchableOpacity>
 );

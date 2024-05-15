@@ -15,6 +15,7 @@ export default function CameraView() {
 	const [picture, setPicture] = useState(null);
 	const [confirm, setConfirm] = useState(false); 
   const [flash, setFlash] = useState(false);
+  const [href, setHref] = useState(null);
   const folderPath = `${FileSystem.documentDirectory}userSavedPic`;
 
 	let camera;
@@ -23,6 +24,7 @@ export default function CameraView() {
 		if (!camera) return;
 		const photo = await camera.takePictureAsync();
 		setPicture(photo);
+    setHref(picture.uri);
 		setConfirm(true);
 	}	  
 
@@ -103,7 +105,7 @@ export default function CameraView() {
             <TextButton
               color={'#89e092'}
               textLabel={'Confirm'}
-              onPress={handleConfirmPress} // placeholder
+              onPress={() => {router.replace(href)}} 
             />
           </View>
         </SafeAreaView>
@@ -134,7 +136,7 @@ export default function CameraView() {
               />
             </SafeAreaView>
           </Camera>
-          <Text style={styles.textContainer}>Start by taking a photo of your garment!</Text>
+          <Text style={styles.textContainer}>Center your garment and take a picture!</Text>
         </SafeAreaView>
       )
 		);
