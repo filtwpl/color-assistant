@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import { Camera, CameraType} from 'expo-camera/legacy';
 import * as FileSystem from 'expo-file-system';
+import { router } from 'expo-router';
 
 import TextButton from './TextButton';
 import IconButton from './IconButton';
@@ -16,7 +17,7 @@ export default function CameraView() {
 	const [confirm, setConfirm] = useState(false); 
   const [flash, setFlash] = useState(false);
   const [href, setHref] = useState(null);
-  const folderPath = `${FileSystem.documentDirectory}userSavedPic`;
+  //const folderPath = `${FileSystem.documentDirectory}userSavedPic`;
 
 	let camera;
   
@@ -24,7 +25,13 @@ export default function CameraView() {
 		if (!camera) return;
 		const photo = await camera.takePictureAsync();
 		setPicture(photo);
-    setHref(picture.uri);
+    let temp_href = {
+      pathname: '/results',
+      params: {
+        uri: picture.uri,
+      },
+    }
+    setHref(temp_href);
 		setConfirm(true);
 	}	  
 
@@ -33,39 +40,39 @@ export default function CameraView() {
 		setConfirm(false);
 	}
 
-  const saveImage = async (uri) => {
-    const fileName = uri.split('/').pop();
+  // const saveImage = async (uri) => {
+  //   const fileName = uri.split('/').pop();
 
-    //Ensure the folder exists
-    const folderInfo = await FileSystem.getInfoAsync(folderPath);
-    if (!folderInfo.exists) {
-      await FileSystem.makeDirectoryAsync(folderPath, { intermediates: true });
-    }
+  //   //Ensure the folder exists
+  //   const folderInfo = await FileSystem.getInfoAsync(folderPath);
+  //   if (!folderInfo.exists) {
+  //     await FileSystem.makeDirectoryAsync(folderPath, { intermediates: true });
+  //   }
   
-    const newPath = `${folderPath}/${fileName}`;
+  //   const newPath = `${folderPath}/${fileName}`;
 
-    const fileInfo = await FileSystem.getInfoAsync(newPath);
-    if (fileInfo.exists) {
-      return newPath; // File exists, return the path and do not overwrite
-    }
+  //   const fileInfo = await FileSystem.getInfoAsync(newPath);
+  //   if (fileInfo.exists) {
+  //     return newPath; // File exists, return the path and do not overwrite
+  //   }
 
-    await FileSystem.moveAsync({
-      from: uri,
-      to: newPath,
-    });
+  //   await FileSystem.moveAsync({
+  //     from: uri,
+  //     to: newPath,
+  //   });
 
-    return newPath; // Optionally return the new path
-  };
+  //   return newPath; // Optionally return the new path
+  // };
 
-  const handleConfirmPress = async () => {
-    try {
-      const newImagePath = await saveImage(picture.uri);
-      console.log('Image saved successfully to:', newImagePath);
-      // Optionally, navigate to another screen or reset the state
-    } catch (error) {
-      console.error('Failed to save image:', error);
-    }
-  };
+  // const handleConfirmPress = async () => {
+  //   try {
+  //     const newImagePath = await saveImage(picture.uri);
+  //     console.log('Image saved successfully to:', newImagePath);
+  //     // Optionally, navigate to another screen or reset the state
+  //   } catch (error) {
+  //     console.error('Failed to save image:', error);
+  //   }
+  // };
 
   if (!permission) {
     return (
