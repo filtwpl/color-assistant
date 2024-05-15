@@ -1,3 +1,6 @@
+// NOT IN USE
+
+
 import React from 'react';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Tabs } from 'expo-router';
@@ -18,6 +21,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name='results'
+        // options={{
+        //   href: null,
+        // }}
+      />
+      <Tabs.Screen
         name='aesthetics'
         options={{
           title: 'Aesthetics',
@@ -29,12 +38,6 @@ export default function TabLayout() {
         options={{
           href: null,
         }}
-      />
-      <Tabs.Screen
-        name='results'
-        // options={{
-        //   href: null,
-        // }}
       />
     </Tabs>
   )

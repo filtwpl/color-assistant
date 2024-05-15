@@ -129,27 +129,8 @@ export default function DetectObjectsScreen() {
         contentContainerStyle={styles.contentContainer}
       >
         <View style={styles.welcomeContainer}>
-          <Text style={styles.headerText}>COCO-SSD Object Detection</Text>
+          <Text style={styles.headerText}>Clothing Color Detection</Text>
 
-          <View style={styles.loadingContainer}>
-            <View style={styles.loadingTfContainer}>
-              <Text style={styles.text}>TensorFlow.js ready?</Text>
-              {isTfReady ? (
-                <Text style={styles.text}>✅</Text>
-              ) : (
-                <ActivityIndicator size="small" />
-              )}
-            </View>
-
-            <View style={styles.loadingModelContainer}>
-              <Text style={styles.text}>COCO-SSD model ready? </Text>
-              {isModelReady ? (
-                <Text style={styles.text}>✅</Text>
-              ) : (
-                <ActivityIndicator size="small" />
-              )}
-            </View>
-          </View>
           <TouchableOpacity
             style={styles.imageWrapper}
             onPress={isModelReady ? selectImageAsync : undefined}
