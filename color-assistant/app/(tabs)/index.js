@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 export default function Page() {
   return (
     <CameraView/>
-    //<DetectObjectsScreen/>
+    // <DetectObjectsScreen/>
   );
 }
 
