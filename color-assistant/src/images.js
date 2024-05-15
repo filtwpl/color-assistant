@@ -1,3 +1,5 @@
+const cottagecoreThumb = require('./img/cottagecore.jpg');
+
 const cottagecore1 = require('./img/cottagecore/1.jpg');
 const cottagecore2 = require('./img/cottagecore/2.jpg');
 const cottagecore3 = require('./img/cottagecore/3.jpg');
@@ -62,6 +64,8 @@ const streetwear7 = require('./img/streetwear/7.jpg');
 const streetwear8 = require('./img/streetwear/8.jpg');
 
 export default {
+  cottagecoreThumb,
+  
   cottagecore1,
   cottagecore2,
   cottagecore3,
@@ -70,6 +74,7 @@ export default {
   cottagecore6,
   cottagecore7,
   cottagecore8,
+  emoThumb,
   emo1,
   emo2,
   emo3,
