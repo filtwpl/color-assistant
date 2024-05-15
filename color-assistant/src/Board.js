@@ -265,7 +265,10 @@ imgs.push(data3);
 imgs.push(data4);
 imgs.push(data5);
 imgs.push(data6);
-  
+
+const aes = []
+aes.push("Colors: Soft earth tones such as sage green, mustard yellow, rustic red, and muted blues. \nDesign Patterns: Floral prints, gingham checks, plaid, paisley, and botanical motifs.");
+
 const Item = ({item}) => (
   <Image
     style={styles.image}
@@ -286,8 +289,9 @@ export default function Board({id}) {
   return (
     <View styles={styles.container}>
       <Text style={styles.header}>{id}</Text>
+      <Text style={styles.descr}>{aes[encoding[id]]}</Text>
       <FlatList
-        style={{top: 40}}
+        style={{top: 120}}
         data={imgs[encoding[id]]}
         numColumns={2}
         renderItem={renderItem}
@@ -316,5 +320,11 @@ const styles = StyleSheet.create({
     left: 15,
     fontSize: 24, 
     fontWeight: 'bold'
+  },
+  descr: {
+    position: 'absolute',
+    top: 50,
+    left: 15,
+    
   }
 })
