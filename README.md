@@ -5,10 +5,11 @@ color assistance app for color blind users for mobile computing spring 2024
 # to run
 1. download the Expo Go app on your phone
 2. make sure you have an even numbered node.js lts release
-3. if you're on Linux or Mac, run brew update && brew install watchman
-4. cd color-assistant (yeah i know the nested folders is weird)
-5. npx expo start
-6. scan QR code to open up the app on your phone
+3. Linux or Mac: brew update && brew install watchman
+4. cd color-assistant
+5. npm install --legacy-peer-deps
+6. npx expo start
+7. scan QR code to open up the app on your phone
 
 # handy resources for expo dev
 icons to use: https://icons.expo.fyi/Index
