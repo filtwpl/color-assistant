@@ -24,17 +24,22 @@ export default function CameraView() {
 	let camera;
   
 	const takePicture = async() => {
-		if (!camera) return;
-		const photo = await camera.takePictureAsync();
-		setPicture(photo);
-    let temp_href = {
-      pathname: '/results',
-      params: {
-        uri: picture.uri,
-      },
+    try{
+      if (!camera) return;
+      const photo = await camera.takePictureAsync();
+      setPicture(photo);
+
+      let temp_href = {
+        pathname: '/results',
+        params: {
+          uri: picture.uri,
+        },
+      }
+      setHref(temp_href);
+      setConfirm(true);
+    } catch (error) {
+      console.log("temp_href error")
     }
-    setHref(temp_href);
-		setConfirm(true);
 	}	  
 
 	const retakePicture = () => {
