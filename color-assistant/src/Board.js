@@ -265,6 +265,9 @@ imgs.push(data3);
 imgs.push(data4);
 imgs.push(data5);
 imgs.push(data6);
+const aes = []
+aes.push("Colors: Soft earth tones such as sage green, mustard yellow, rustic red, and muted blues. Design Patterns: Floral prints, gingham checks, plaid, paisley, and botanical motifs.");
+aes.push("Colors: Predominantly black, with accents of deep red, dark purple, charcoal gray, and sometimes electric blue. Design Patterns: Solid color, stripes (especially horizontal or diagonal), skulls, crossbones, stars, and distressed textures.");
   
 const Item = ({item}) => (
   <Image
@@ -286,6 +289,7 @@ export default function Board({id}) {
   return (
     <View styles={styles.container}>
       <Text style={styles.header}>{id}</Text>
+      <Text>{aes[encoding[id]]}</Text>
       <FlatList
         style={{top: 40}}
         data={imgs[encoding[id]]}

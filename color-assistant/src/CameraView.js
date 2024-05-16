@@ -1,14 +1,21 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCameraPermissions } from 'expo-camera';
 import { Image } from 'expo-image';
-import { useState, useEffect } from 'react';
+import { Image as ReactImage } from 'react-native';
+import { useRef,useState, useEffect } from 'react';
 import React from 'react';
-import { Camera, CameraType} from 'expo-camera/legacy';
-import * as FileSystem from 'expo-file-system';
-import { router } from 'expo-router';
+import * as jpeg from "jpeg-js";
 
-// import { getColors } from 'react-native-image-colors'
+import { Camera, CameraType} from 'expo-camera/legacy';
+import * as ImageManipulator from "expo-image-manipulator";
+
+import { router } from 'expo-router';
+import * as tf from "@tensorflow/tfjs";
+import "@tensorflow/tfjs-react-native";
+
+import * as cocossd from "@tensorflow-models/coco-ssd";
+import { fetch } from "@tensorflow/tfjs-react-native";
 
 import TextButton from './TextButton';
 import IconButton from './IconButton';
@@ -18,33 +25,126 @@ export default function CameraView() {
 	const [picture, setPicture] = useState(null);
 	const [confirm, setConfirm] = useState(false); 
   const [flash, setFlash] = useState(false);
-  const [href, setHref] = useState(null);
-  //const folderPath = `${FileSystem.documentDirectory}userSavedPic`;
+  const [croppedImg, setCroppedImg] = useState(null);
+  const [loading, setLoading] = useState(false);
 
 	let camera;
+
+  const [isTfReady, setIsTfReady] = useState(false);
+  const [isModelReady, setIsModelReady] = useState(false);
+  const [predictions, setPredictions] = useState(null);
+  const [imageToAnalyze, setImageToAnalyze] = useState(null);
+  const model = useRef(null);
+
+  useEffect(() => {
+    const initializeTfAsync = async () => {
+      await tf.ready();
+      setIsTfReady(true);
+    };
+
+    const initializeModelAsync = async () => {
+      model.current = await cocossd.load(); // preparing COCO-SSD model
+      setIsModelReady(true);
+    };
+
+    initializeTfAsync();
+    initializeModelAsync();
+
+  }, []);
+
+  const imageToTensor = (rawImageData) => {
+    try {
+      const { width, height, data } = jpeg.decode(rawImageData, {
+        useTArray: true,
+      }); // return as Uint8Array
+  
+      // Drop the alpha channel info for mobilenet
+      const buffer = new Uint8Array(width * height * 3);
+      let offset = 0; // offset into original data
+      for (let i = 0; i < buffer.length; i += 3) {
+        buffer[i] = data[offset];
+        buffer[i + 1] = data[offset + 1];
+        buffer[i + 2] = data[offset + 2];
+  
+        offset += 4;
+      }
+  
+      return tf.tensor3d(buffer, [height, width, 3]);
+    } catch (error) {
+      console.log('imageToTensor error: ', error);
+    }
+  };
+
+  const cropImage = async(pred) => {
+    try {
+        console.log("h")
+        ImageManipulator.manipulateAsync(
+          picture.uri, [{crop: 
+            {
+              height:  pred.bbox[3] ,
+              originX: pred.bbox[0] + 100,
+              originY: pred.bbox[1] ,
+              width: pred.bbox[2] ,
+            }
+          }]
+        ).then(result => setCroppedImg(result)).then(setLoading(false));
+    } catch (error) {
+      console.log('crop image error: ', error);
+    }
+  }
+
+  const detectObjectsAsync = async (source) => {
+    try {
+      console.log("source: ", source);
+      const response = await fetch(source, {}, { isBinary: true });
+      const rawImageData = await response.arrayBuffer();
+      const imageTensor = imageToTensor(rawImageData);
+      const newPredictions = await model.current.detect(imageTensor);
+      setPredictions(newPredictions);
+      console.log("=== Detect objects predictions: ===");
+      console.log(newPredictions);
+      await cropImage(predictions[0]).then(router.replace({
+        pathname: '/cropped', 
+        params: { 
+          predictions: predictions[0], 
+          uri: croppedImg.uri,
+        }
+      }));
+    } catch (error) {
+      console.log("Exception Error: ", error);
+    }
+  };
+
+  const processImageAsync = async() => {
+    setLoading(true);
+    try {
+      await ImageManipulator.manipulateAsync(
+        picture.uri,
+        [{ resize: { width: 900 } }],
+        { compress: 1, format: ImageManipulator.SaveFormat.JPEG }
+      ).then(crop => detectObjectsAsync(crop.uri));
+    } catch (error) {
+      console.log("process img error: ", error);
+    }
+  }
   
 	const takePicture = async() => {
     if (!camera) return;
-    try{
-      if (!camera) return;
-      const photo = await camera.takePictureAsync();
-      setPicture(photo);
-
-      let temp_href = await {
-        pathname: '/results',
-        params: {
-          uri: picture.uri,
-        },
-      }
-      setHref(temp_href);
-      setConfirm(true);
-    } catch (error) {
-      console.log("temp_href error")
-    }
+    const photo = await camera.takePictureAsync();
+    setPicture(photo);
+    setConfirm(true);
 	}	  
 
   const confirmPicture = () => {
-    router.replace(href)
+    console.log(picture.uri);
+    let href = {
+      pathname: '/results',
+      params: {
+        uri: picture.uri,
+      }
+    };
+    console.log(href);
+    router.replace(href);
   };
 
 	const retakePicture = () => {
@@ -52,62 +152,14 @@ export default function CameraView() {
 		setConfirm(false);
 	}
 
-  // const saveImage = async (uri) => {
-  //   const fileName = uri.split('/').pop();
-
-  //   //Ensure the folder exists
-  //   const folderInfo = await FileSystem.getInfoAsync(folderPath);
-  //   if (!folderInfo.exists) {
-  //     await FileSystem.makeDirectoryAsync(folderPath, { intermediates: true });
-  //   }
-  
-  //   const newPath = `${folderPath}/${fileName}`;
-
-  //   const fileInfo = await FileSystem.getInfoAsync(newPath);
-  //   if (fileInfo.exists) {
-  //     return newPath; // File exists, return the path and do not overwrite
-  //   }
-
-  //   await FileSystem.moveAsync({
-  //     from: uri,
-  //     to: newPath,
-  //   });
-
-  //   return newPath; // Optionally return the new path
-  // };
-
-  // const handleConfirmPress = async () => {
-  //   try {
-  //     const newImagePath = await saveImage(picture.uri);
-  //     console.log('Image saved successfully to:', newImagePath);
-  //     // Optionally, navigate to another screen or reset the state
-  //   } catch (error) {
-  //     console.error('Failed to save image:', error);
-  //   }
-  // };
-
-  // const useImageColors = () => {
-  //   const [colors, setColors] = React.useState(null)
-  
-  //   React.useEffect(() => {
-  //     getColors(picture.uri, {
-  //       fallback: '#D6D6D6',
-  //       cache: true,
-  //       key: picture.uri,
-  //     }).then(setColors)
-  //   }, [])
-  
-  //   // text component = colors
-  // }
-
   if (!permission) {
     return (
-		<SafeAreaView>
-			<Text style={{ textAlign: 'center', margin: 'auto'}}>
-				Please go to settings to enable camera permissions!
-			</Text>
-		</SafeAreaView>
-	);
+      <SafeAreaView>
+        <Text style={{ textAlign: 'center', margin: 'auto'}}>
+          Please go to settings to enable camera permissions!
+        </Text>
+      </SafeAreaView>
+    );
   }
   
   if (!permission.granted) {
@@ -122,8 +174,13 @@ export default function CameraView() {
   }
 
   return (
-      (picture && confirm) ? (
+      (!isModelReady && !isTfReady) ? (
         <SafeAreaView style={styles.container}>
+         <Text>Loading...</Text>
+        </SafeAreaView>
+      ) : (
+        (picture && confirm) ? (
+          <SafeAreaView style={styles.container}>
           <Image 
             contentFit={'contain'}
             style={styles.camera}
@@ -135,15 +192,23 @@ export default function CameraView() {
               textLabel={'Retake'} 
               onPress={retakePicture}
             />
-            <TextButton
-              color={'#89e092'}
-              textLabel={'Confirm'}
-              onPress={confirmPicture} 
-            />
+            {(loading) ? (
+              <TextButton
+                color={'#89e092'}
+                textLabel={'Loading...'}
+                onPress={processImageAsync} 
+              />
+            ) : (
+              <TextButton
+                color={'#89e092'}
+                textLabel={'Confirm'}
+                onPress={processImageAsync} 
+              />
+            )}
           </View>
-        </SafeAreaView>
-      ) : (
-        <SafeAreaView style={styles.container}>
+          </SafeAreaView>
+        ) : (
+          <SafeAreaView style={styles.container}>
           <Camera 
             autoFocus={true}
             style={styles.camera}
@@ -170,9 +235,10 @@ export default function CameraView() {
             </SafeAreaView>
           </Camera>
           <Text style={styles.textContainer}>Center your garment and take a picture!</Text>
-        </SafeAreaView>
+          </SafeAreaView>
+        )
       )
-		);
+  );
 }
 
 const styles = StyleSheet.create({

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Results from '../../src/Resultstemp';
+import Cropped from '../../src/Cropped';
 import { useLocalSearchParams } from 'expo-router';
 
 export default function Page() {
 
-  const { uri } = useLocalSearchParams();
+  const { pred, uri } = useLocalSearchParams();
 
   return (
-    <Results uri={uri}/>
+    <Cropped pred={pred} uri={uri}/>
   );
-  }
+};
   

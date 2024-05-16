@@ -18,12 +18,13 @@ import "@tensorflow/tfjs-react-native";
 import * as cocossd from "@tensorflow-models/coco-ssd";
 
 import * as jpeg from "jpeg-js";
-import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 
 import { fetch } from "@tensorflow/tfjs-react-native";
+import { router } from 'expo-router';
 
 export default function Results({uri}) {
+  console.log('running');
   const [isTfReady, setIsTfReady] = useState(false);
   const [isModelReady, setIsModelReady] = useState(false);
   const [predictions, setPredictions] = useState(null);
@@ -43,6 +44,27 @@ export default function Results({uri}) {
 
     initializeTfAsync();
     initializeModelAsync();
+
+    processImageAsync().then(() => {
+        console.log(predictions[0]);
+        let temp_href = {
+          pathname: '/cropped',
+          params: { predictions: predictions[0], uri: uri },
+        };
+        router.replace(temp_href);
+        return;
+      }
+    );
+
+    // if (isModelReady && isTfReady && predictions) {
+    //   console.log(predictions[0]);
+    //   let temp_href = {
+    //     pathname: '/cropped',
+    //     params: { predictions: predictions[0], uri: uri },
+    //   };
+    //   router.replace(temp_href);
+    //   return;
+    // }
   }, []);
 
   const imageToTensor = (rawImageData) => {
@@ -65,10 +87,9 @@ export default function Results({uri}) {
   };
 
   const detectObjectsAsync = async (source) => {
-    console.log(source)
     try {
+      console.log('source: ', source);
       const imageAssetPath = Image.resolveAssetSource(source);
-      console.log(imageAssetPath)
       const response = await fetch(imageAssetPath.uri, {}, { isBinary: true });
       const rawImageData = await response.arrayBuffer();
       const imageTensor = imageToTensor(rawImageData);
@@ -95,14 +116,11 @@ export default function Results({uri}) {
     }
   }
   
-  processImageAsync();
-  if (imageToAnalyze) {
-    console.log(imageToAnalyze.uri);
-  }
+
   return (
-    <View styles={{display: 'flex', alignItems: 'center'}}>
-      <Text>Loading...</Text>
-      {isModelReady && imageToAnalyze && (
+    <View styles={{display: 'flex', justifyContent: 'center'}}>
+      <Text styles={{fontSize: 30}}>Finding your garment... This might take a second!</Text>
+      {/* {isModelReady && imageToAnalyze && (
         <Text>
           Predictions: {predictions ? "" : "Predicting..."}
         </Text>
@@ -122,7 +140,7 @@ export default function Results({uri}) {
               height: {p.bbox[3]} 
             </Text>
           );
-        })}
+        })} */}
     </View>
   );
 }

@@ -100,7 +100,7 @@ export default function DetectObjectsScreen() {
         aspect: [4, 3],
       });
 
-      if (!response.cancelled) {
+      if (!response.canceled) {
         uri = response.assets[0].uri
         // resize image to avoid out of memory crashes
         const manipResponse = await ImageManipulator.manipulateAsync(
